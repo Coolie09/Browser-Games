@@ -22,7 +22,7 @@ let information = {
         pingPong: ' *, *::before, *::after {  box-sizing: border-box; margin: 0; } .pingPong > h1 { position: relative; top: 20%;  left: 50%;} .pingPong > img { position: relative; top: 10%; left: 40%;} .pingPong {font-family: \'Poppins\' sans-serif;z-index: 5000000000; border: solid black 3px; box-shadow: 0 0 3px black; width: 300px;  position: absolute; top: 0%; right: 0%; background-color: #fff;} .pingPong > button { position: relative; top: 0%; left: 10%; border: solid black 3px;} .pingPong > button:first-of-type { left: 1%;}',
         flap: { 
             html: ` <div id="game"><div id="block"></div><div id="hole"></div><div id="character"></div></div>`,
-            css: ` *, *::before, *::after {  box-sizing: border-box; margin: 0; } .pingPong > h1 { position: relative; top: 20%;  left: 50%;} .pingPong > img { position: relative; top: 10%; left: 40%;} .pingPong {font-family: \'Poppins\' sans-serif;z-index: 5000000000; border: solid black 3px; box-shadow: 0 0 3px black; width: 300px;  position: absolute; top: 0%; right: 0%; background-color: #fff;} .pingPong > button { position: relative; top: 0%; left: 10%; border: solid black 3px;} .pingPong > button:first-of-type { left: 1%;}*{padding:0;margin:0}#game{width:325px;height:300px;border:1px solid #000;margin:auto;overflow:hidden}#block{width:40px;height:300px;background-color:#000;position:relative;left:325px;animation:block 2s infinite linear}@keyframes block{0%{left:325px}100%{left:-50px}}#hole{width:40px;height:100px;background-color:#fff;position:relative;left:325px;top:-300px;animation:block 2s infinite linear}#character{width:10px;height:10px;background-color:red;position:absolute;top:100px;border-radius:50%}`
+            css: ` *, *::before, *::after {  box-sizing: border-box; margin: 0; } .pingPong > h1 { position: relative; top: 20%;  left: 50%;} .pingPong > img { position: relative; top: 10%; left: 40%;} .pingPong {font-family: \'Poppins\' sans-serif;z-index: 5000000000; border: solid black 3px; box-shadow: 0 0 3px black; width: 300px;  position: absolute; top: 0%; right: 0%; background-color: #fff;} .pingPong > button { position: relative; top: 0%; left: 10%; border: solid black 3px;} .pingPong > button:first-of-type { left: 1%;}*{padding:0;margin:0}#game{width:300px;height:300px;border:1px solid #000;margin:auto;overflow:hidden}#block{width:40px;height:300px;background-color:#000;position:relative;left:325px;animation:block 2s infinite linear}@keyframes block{0%{left:325px}100%{left:-50px}}#hole{width:40px;height:100px;background-color:#fff;position:relative;left:325px;top:-300px;animation:block 2s infinite linear}#character{width:10px;height:10px;background-color:red;position:absolute;top:100px;border-radius:50%}`
         }
     },
     content: {
@@ -60,7 +60,30 @@ class createBoard {
     }
 
     _createPingPong() {
-       return
+        let sty = document.createElement("style");
+        sty.textContent = information.styles.flap.css
+        document.body.insertAdjacentElement("afterbegin", sty)
+        let element = document.createElement("div");
+        element.setAttribute("class", `pingPong`);
+        document.body.insertAdjacentElement("afterbegin",element);
+        // element.insertAdjacentHTML("afterbegin", `<canvas></canvas>`)
+        let canvas = document.createElement("canvas");
+        
+        element.insertAdjacentElement("afterbegin",canvas);
+        const canvasEl=document.querySelector("canvas");const canvasContext=canvasEl.getContext("2d");canvasEl.width=300;canvasEl.height=300;let RIScore=new Audio();let AIScore=new Audio();let hit=new Audio();let wall=new Audio();hit.src="sounds/hit.mp3";wall.src="sounds/wall.mp3";AIScore.src="sounds/AIScore.mp3";RIScore.src="sounds/RIScore.mp3";const playerPaddleRI={xP:0,yP:canvasEl.height/2-100/2,height:100,width:10,color:"#d2e603",score:0,};const playerPaddleAI={xP:canvasEl.width-10,yP:canvasEl.height/2-100/2,height:100,width:10,color:"orange",score:0,};const ball={xP:canvasEl.width/2,yP:canvasEl.height/2,radius:10,speed:7,xV:5,yV:5,color:"white",};const net={xP:canvasEl.width/2-1,yP:0,width:2,height:10,color:"white",};function drawRect(xP,yP,width,height,color){canvasContext.fillStyle=color;canvasContext.fillRect(xP,yP,width,height)}
+        function drawCircle(xP,yP,radius,color){canvasContext.fillStyle=color;canvasContext.beginPath();canvasContext.arc(xP,yP,radius,0,Math.PI*2);canvasContext.fill()}
+        function drawText(content,xP,yP,color){canvasContext.fillStyle=color;canvasContext.font="35px sans-serif";canvasContext.fillText(content,xP,yP)}
+        function drawNet(){for(let i=0;i<canvasEl.height;i+=15){drawRect(net.xP,net.yP+i,net.width,net.height,net.color)}}
+        function runGame(){drawRect(0,0,canvasEl.width,canvasEl.height,"#4683a0");drawNet();drawText(playerPaddleRI.score,(1*canvasEl.width)/4,(1*canvasEl.height)/10,"white");drawText(playerPaddleAI.score,(3*canvasEl.width)/4,(1*canvasEl.height)/10,"white");drawRect(playerPaddleRI.xP,playerPaddleRI.yP,playerPaddleRI.width,playerPaddleRI.height,playerPaddleRI.color);drawRect(playerPaddleAI.xP,playerPaddleAI.yP,playerPaddleAI.width,playerPaddleAI.height,playerPaddleAI.color);drawCircle(ball.xP,ball.yP,ball.radius,ball.color)}
+        canvasEl.addEventListener("mousemove",movePaddle);function movePaddle(e){let canvasRect=canvasEl.getBoundingClientRect();playerPaddleRI.yP=e.clientY-canvasRect.top-playerPaddleRI.height/2}
+        function paddleColliDete(BALL,PADDLE){BALL.top=BALL.yP-BALL.radius;BALL.bottom=BALL.yP+BALL.radius;BALL.left=BALL.xP-BALL.radius;BALL.right=BALL.xP+BALL.radius;PADDLE.top=PADDLE.yP;PADDLE.bottom=PADDLE.yP+PADDLE.height;PADDLE.left=PADDLE.xP;PADDLE.right=PADDLE.xP+PADDLE.width;return(BALL.right>PADDLE.left&&BALL.bottom>PADDLE.top&&BALL.left<PADDLE.right&&BALL.top<PADDLE.bottom)}
+        function resetBall(){ball.xP=canvasEl.width/2;ball.yP=canvasEl.height/2;ball.speed=7}
+        function everythingManager(){ball.xP+=ball.xV;ball.yP+=ball.yV;let intelligenceLevel=0.1;playerPaddleAI.yP+=(ball.yP-(playerPaddleAI.yP+playerPaddleAI.height/2))*intelligenceLevel;if(ball.yP+ball.radius>canvasEl.height||ball.yP-ball.radius<0){ball.yV=-ball.yV;wall.play()}
+        let player=ball.xP+ball.radius<canvasEl.width/2?playerPaddleRI:playerPaddleAI;if(paddleColliDete(ball,player)){hit.play();let collisionPoint=ball.yP-(player.yP+player.height/2);collisionPoint=collisionPoint/(player.height/2);let bounceAngle=(collisionPoint*Math.PI)/4;let direction=ball.xP+ball.radius<canvasEl.width/2?1:-1;ball.xV=direction*ball.speed*Math.cos(bounceAngle);ball.yV=ball.speed*Math.sin(bounceAngle);ball.speed+=0.1}
+        if(ball.xP+ball.radius<0){playerPaddleAI.score++;AIScore.play();resetBall()}else if(ball.xP-ball.radius>canvasEl.width){playerPaddleRI.score++;RIScore.play();resetBall()}}
+        function gameInit(){everythingManager();runGame()}
+        const FPS=60;setInterval(gameInit,1000/FPS)
+        document.addEventListener("keydown", e => {if (e.key == "Dead") this._endGame()}, {once: true})
     }
 
     _createFlap() {
