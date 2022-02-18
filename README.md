@@ -15,5 +15,8 @@ All you have to do is to press g (default-key) on your keyboard and to type in t
 ```
 
 ## Games in detail 
+
+#### Ping-Pong
+![Picture of PingPong](https://github.com/Coolie09/BETA-BrowserGames/blob/master/Ping-Pong.png?raw=true)
 ### Send me your ideas! 
 @Coolie09 2022
