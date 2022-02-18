@@ -13,5 +13,7 @@ All you have to do is to press g (default-key) on your keyboard and to type in t
 .addEventListener("keydown", e => {
     if (e.key == "g") {
 ```
+
+## Games in detail 
 ### Send me your ideas! 
 @Coolie09 2022
