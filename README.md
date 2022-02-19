@@ -18,5 +18,9 @@ All you have to do is to press g (default-key) on your keyboard and to type in t
 
 ### Ping-Pong
 ![Picture of PingPong](https://github.com/Coolie09/BETA-BrowserGames/blob/main/Ping-Pong.png?raw=true)
+#### How to play: Change position of player with mouse cursor 
+#### Realse Date: 19.02.2022
+#### Next Update: 19.02 - 20.02.2022
+
 ### Send me your ideas! 
 @Coolie09 2022
