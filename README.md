@@ -23,4 +23,5 @@ Realse Date: 19.02.2022 <br>
 Next Update: 19.02 - 20.02.2022 <br>
 
 ### Send me your ideas! 
-@Coolie09 2022
+This script is subject to the MIT-License! Please note and respect this!
+@Coolie09 Copyright© 2022
