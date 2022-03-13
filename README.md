@@ -1,4 +1,4 @@
-# BETA-BrowserGames
+# Browser-Games [Version: 1.1]
 
 ## Warning ⚠️
 This script is just a beta-version and is beeing extended by a game or a bug fix every day! It can conatin hence some bugs! <br>
